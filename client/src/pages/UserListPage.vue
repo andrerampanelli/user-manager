@@ -85,20 +85,23 @@ function onEdit(id: number) {
 }
 
 async function onDelete(id: number) {
-  ElMessageBox.confirm('Are you sure you want to delete this user?', 'Confirm', {
-    confirmButtonText: 'Delete',
-    cancelButtonText: 'Cancel',
-    type: 'warning',
-  }).then(async () => {
-    try {
-      await deleteUser(id)
-      ElMessage.success('User deleted')
-      fetchUsers()
-    } catch (error) {
-      ElMessage.error('Failed to delete user')
-    }
-  }).catch(() => {
+  try {
+    await ElMessageBox.confirm('Are you sure you want to delete this user?', 'Confirm', {
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    })  
+  } catch (error) {
     ElMessage.info('Delete cancelled')
-  })
+    return
+  }
+  
+  try {
+    await deleteUser(id)
+    ElMessage.success('User deleted')
+    fetchUsers()
+  } catch (error) {
+    ElMessage.error('Failed to delete user')
+  }
 }
 </script>
