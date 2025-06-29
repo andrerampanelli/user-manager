@@ -1,0 +1,41 @@
+# Go (server/)
+/server/bin/
+/server/pkg/
+/server/vendor/
+/server/.env
+/server/.env.*
+/server/coverage.out
+/server/*.log
+/server/tmp/
+/server/.DS_Store
+/server/.idea/
+/server/.vscode/
+/server/.cache/
+/server/.test/
+# Go build output
+/server/*.exe
+/server/*.exe~
+/server/*.dll
+/server/*.so
+/server/*.dylib
+/server/*.test
+# Go workspace file
+/server/go.work
+# Go module cache
+/server/gocache/
+
+# Vue (client/)
+/client/node_modules/
+/client/dist/
+/client/.env
+/client/.env.*
+/client/.DS_Store
+/client/.idea/
+/client/.vscode/
+/client/.cache/
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
+/client/pnpm-debug.log*
+/client/coverage/
+/client/.output/
