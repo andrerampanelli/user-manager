@@ -49,6 +49,30 @@ func (h *UserHandler) GetUsers(c *gin.Context) {
 	})
 }
 
+func (h *UserHandler) GetUser(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id < 1 {
+		logger.Log.Warnf("Invalid user ID: %s", idStr)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	user, err := h.Repo.GetByID(uint(id))
+	if err != nil {
+		logger.Log.Errorf("Failed to fetch user: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
+	if user == nil {
+		logger.Log.Warnf("User not found: %d", id)
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
+
 func (h *UserHandler) CreateUser(c *gin.Context) {
 	type CreateUserRequest struct {
 		Name  string `json:"name" binding:"required"`
