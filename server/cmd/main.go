@@ -11,6 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -36,9 +37,12 @@ func main() {
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.Use(middleware.LoggingMiddleware())
+	r.Use(middleware.MetricsMiddleware())
 	userHandler := handler.NewUserHandler(userRepo)
 
 	handler.RegisterRoutes(r, userHandler)
+
+	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	fmt.Println("Starting server on :8080 ...")
 	r.Run(":8080")
