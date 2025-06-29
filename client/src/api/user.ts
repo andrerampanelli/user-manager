@@ -22,3 +22,19 @@ export async function getUsers(params: { page?: number; limit?: number; search?:
   })
   return response.data
 }
+
+export async function getUser(id: number) {
+  // TODO: implement API call
+}
+export async function createUser(data: any) {
+  // TODO: implement API call
+}
+export async function updateUser(id: number, data: any) {
+  // TODO: implement API call
+}
+export async function deleteUser(id: number) {
+  const response = await axios.delete(`/users/${id}`, {
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
+  })
+  return response.data
+} 
