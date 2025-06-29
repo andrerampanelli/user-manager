@@ -44,7 +44,6 @@ onMounted(async () => {
   margin: 32px auto;
   &__card {
     padding: 24px;
-    border-radius: $border-radius;
     box-shadow: 0 2px 8px #f0f1f2;
     background: #fff;
   }

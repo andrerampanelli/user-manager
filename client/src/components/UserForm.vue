@@ -69,7 +69,6 @@ watch(() => props.user, (newUser) => {
   margin: 0 auto;
   padding: 24px;
   background: #fff;
-  border-radius: $border-radius;
   box-shadow: 0 2px 8px #f0f1f2;
   &__input {
     width: 100%;

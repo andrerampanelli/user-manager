@@ -51,7 +51,6 @@ defineEmits(['edit', 'delete', 'page-change', 'limit-change'])
 <style lang="scss" scoped>
 .user-table {
   &__link {
-    color: $primary-color;
     text-decoration: none;
     font-weight: 500;
     &:hover {

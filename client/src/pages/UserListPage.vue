@@ -110,7 +110,6 @@ async function onDelete(id: number) {
   margin: 32px auto;
   padding: 24px;
   background: #fff;
-  border-radius: $border-radius;
   box-shadow: 0 2px 8px #f0f1f2;
   &__header {
     display: flex;
