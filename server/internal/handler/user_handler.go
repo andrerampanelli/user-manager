@@ -45,3 +45,43 @@ func (h *UserHandler) GetUsers(c *gin.Context) {
 		"limit": limit,
 	})
 }
+
+func (h *UserHandler) CreateUser(c *gin.Context) {
+	type CreateUserRequest struct {
+		Name  string `json:"name" binding:"required"`
+		Email string `json:"email" binding:"required,email"`
+		Age   int    `json:"age" binding:"required"`
+	}
+	var req CreateUserRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input", "details": err.Error()})
+		return
+	}
+
+	if req.Age <= 18 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Age must be greater than 18"})
+		return
+	}
+
+	existing, err := h.Repo.GetByEmail(req.Email)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to check email uniqueness"})
+		return
+	}
+	if existing != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Email already exists"})
+		return
+	}
+
+	user := &domain.User{
+		Name:  req.Name,
+		Email: req.Email,
+		Age:   req.Age,
+	}
+	if err := h.Repo.Create(user); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		return
+	}
+
+	c.JSON(http.StatusCreated, user)
+}
