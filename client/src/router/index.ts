@@ -19,6 +19,12 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
+    path: '/users/:id',
+    name: 'UserDetails',
+    component: () => import('@/pages/UserDetailsPage.vue'),
+    props: true,
+  },
+  {
     path: '/',
     redirect: '/users',
   },
