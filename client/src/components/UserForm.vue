@@ -1,13 +1,13 @@
 <template>
-  <el-form :model="form" :rules="rules" ref="formRef" label-width="80px" @submit.prevent="onSubmit">
+  <el-form :model="form" :rules="rules" ref="formRef" label-width="80px" class="user-form" @submit.prevent="onSubmit">
     <el-form-item label="Name" prop="name">
-      <el-input v-model="form.name" autocomplete="off" />
+      <el-input v-model="form.name" autocomplete="off" class="user-form__input" />
     </el-form-item>
     <el-form-item label="Email" prop="email">
-      <el-input v-model="form.email" autocomplete="off" />
+      <el-input v-model="form.email" autocomplete="off" class="user-form__input" />
     </el-form-item>
     <el-form-item label="Age" prop="age">
-      <el-input-number v-model="form.age" :min="18" :max="200" />
+      <el-input-number v-model="form.age" :min="18" :max="200" class="user-form__input-number" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">Submit</el-button>
@@ -61,4 +61,21 @@ watch(() => props.user, (newUser) => {
     form.value = { ...newUser }
   }
 })
-</script> 
+</script>
+
+<style lang="scss" scoped>
+.user-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 8px #f0f1f2;
+  &__input {
+    width: 100%;
+  }
+  &__input-number {
+    width: 100%;
+  }
+}
+</style> 
