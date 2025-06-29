@@ -6,4 +6,5 @@ func RegisterRoutes(r *gin.Engine, userHandler *UserHandler) {
 	r.GET("/users", userHandler.GetUsers)
 	r.POST("/users", userHandler.CreateUser)
 	r.PUT("/users/:id", userHandler.UpdateUser)
+	r.DELETE("/users/:id", userHandler.DeleteUser)
 }
