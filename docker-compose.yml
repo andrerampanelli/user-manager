@@ -13,5 +13,32 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+
+  server:
+    build:
+      context: ./server
+    container_name: user-manager-backend
+    depends_on:
+      - db
+    environment:
+      - DB_USER=admin
+      - DB_PASSWORD=mydifficultpassword
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=user_manager
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+    container_name: user-manager-frontend
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
 volumes:
   db_data: 
