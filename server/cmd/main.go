@@ -36,6 +36,7 @@ func main() {
 	// Set up Gin server and routes
 	r := gin.New()
 	r.Use(gin.Recovery())
+	r.Use(middleware.CORSMiddleware())
 	r.Use(middleware.LoggingMiddleware())
 	r.Use(middleware.MetricsMiddleware())
 	userHandler := handler.NewUserHandler(userRepo)
