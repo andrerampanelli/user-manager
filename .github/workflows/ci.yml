@@ -52,6 +52,9 @@ jobs:
   frontend:
     name: Frontend (Vue)
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
     steps:
       - uses: actions/checkout@v4
       - name: Set up pnpm
@@ -64,8 +67,8 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       - name: Install dependencies
-        run: cd client && pnpm install
+        run: pnpm install
       - name: Run frontend tests
-        run: cd client && pnpm run test:unit
+        run: pnpm run test:unit
       - name: Build frontend Docker image
-        run: docker build -t user-manager-frontend ./client 
+        run: docker build -t user-manager-frontend . 
