@@ -57,21 +57,14 @@ jobs:
         working-directory: client
     steps:
       - uses: actions/checkout@v4
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 'latest'
-          package_json_file: client/package.json
-          run_install: |
-            - cwd: client
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
+          cache: 'npm'
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Run frontend tests
-        run: pnpm run test:unit
+        run: npm run test:unit
       - name: Build frontend Docker image
         run: docker build -t user-manager-frontend . 

@@ -1,10 +1,10 @@
 # --- Builder stage ---
 FROM node:alpine AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm install
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
-RUN pnpm run build
+RUN npm run build
 
 # --- Runner stage ---
 FROM nginx:alpine
