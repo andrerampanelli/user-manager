@@ -44,6 +44,19 @@ func main() {
 
 	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
+	r.GET("/healthz", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok"})
+	})
+
+	r.GET("/readyz", func(c *gin.Context) {
+		db, err := db.DB()
+		if err != nil || db.Ping() != nil {
+			c.JSON(500, gin.H{"status": "not ready"})
+			return
+		}
+		c.JSON(200, gin.H{"status": "ready"})
+	})
+
 	fmt.Println("Starting server on :8080 ...")
 	r.Run(":8080")
 }
