@@ -20,3 +20,18 @@ func TestLoadConfig(t *testing.T) {
 	assert.Equal(t, "1234", cfg.Port)
 	assert.Equal(t, "testdb", cfg.Name)
 }
+
+func TestLoadConfig_MissingEnv(t *testing.T) {
+	t.Setenv("DB_USER", "")
+	t.Setenv("DB_PASSWORD", "")
+	t.Setenv("DB_HOST", "")
+	t.Setenv("DB_PORT", "")
+	t.Setenv("DB_NAME", "")
+
+	cfg := LoadConfig()
+	assert.Equal(t, "", cfg.User)
+	assert.Equal(t, "", cfg.Password)
+	assert.Equal(t, "", cfg.Host)
+	assert.Equal(t, "", cfg.Port)
+	assert.Equal(t, "", cfg.Name)
+}

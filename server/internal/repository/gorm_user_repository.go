@@ -55,6 +55,13 @@ func (r *GormUserRepository) Create(user *domain.User) error {
 }
 
 func (r *GormUserRepository) Update(user *domain.User) error {
+	existingUser, err := r.GetByID(user.ID)
+	if err != nil {
+		return err
+	}
+	if existingUser == nil {
+		return errors.New("user not found")
+	}
 	return r.db.Save(user).Error
 }
 

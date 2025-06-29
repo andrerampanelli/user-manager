@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var _ UserRepository = (*GormUserRepository)(nil)
+
 func setupTestDB(t *testing.T) *gorm.DB {
 	db, err := gorm.Open(sqlite.Open(":memory:"), &gorm.Config{})
 	if err != nil {
@@ -84,4 +86,45 @@ func TestGormUserRepository_GetAll_SearchAndPagination(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, int64(3), count)
 	assert.Equal(t, 1, len(results))
+}
+
+func TestGormUserRepository_GetByID_NotFound(t *testing.T) {
+	db := setupTestDB(t)
+	repo := NewGormUserRepository(db)
+	user, err := repo.GetByID(999)
+	assert.NoError(t, err)
+	assert.Nil(t, user)
+}
+
+func TestGormUserRepository_GetByEmail_NotFound(t *testing.T) {
+	db := setupTestDB(t)
+	repo := NewGormUserRepository(db)
+	user, err := repo.GetByEmail("notfound@example.com")
+	assert.NoError(t, err)
+	assert.Nil(t, user)
+}
+
+func TestGormUserRepository_Create_DuplicateEmail(t *testing.T) {
+	db := setupTestDB(t)
+	repo := NewGormUserRepository(db)
+	user1 := &domain.User{Name: "User1", Email: "dup@example.com", Age: 22}
+	user2 := &domain.User{Name: "User2", Email: "dup@example.com", Age: 23}
+	assert.NoError(t, repo.Create(user1))
+	err := repo.Create(user2)
+	assert.Error(t, err)
+}
+
+func TestGormUserRepository_Update_NonExistentUser(t *testing.T) {
+	db := setupTestDB(t)
+	repo := NewGormUserRepository(db)
+	user := &domain.User{ID: 999, Name: "Ghost", Email: "ghost@example.com", Age: 30}
+	err := repo.Update(user)
+	assert.Error(t, err)
+}
+
+func TestGormUserRepository_Delete_NonExistentUser(t *testing.T) {
+	db := setupTestDB(t)
+	repo := NewGormUserRepository(db)
+	err := repo.Delete(999)
+	assert.NoError(t, err)
 }
