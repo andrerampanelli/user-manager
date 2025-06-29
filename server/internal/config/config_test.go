@@ -1,0 +1,22 @@
+package config
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestLoadConfig(t *testing.T) {
+	t.Setenv("DB_USER", "testuser")
+	t.Setenv("DB_PASSWORD", "testpass")
+	t.Setenv("DB_HOST", "localhost")
+	t.Setenv("DB_PORT", "1234")
+	t.Setenv("DB_NAME", "testdb")
+
+	cfg := LoadConfig()
+	assert.Equal(t, "testuser", cfg.User)
+	assert.Equal(t, "testpass", cfg.Password)
+	assert.Equal(t, "localhost", cfg.Host)
+	assert.Equal(t, "1234", cfg.Port)
+	assert.Equal(t, "testdb", cfg.Name)
+}
