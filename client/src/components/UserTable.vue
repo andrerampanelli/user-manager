@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
 import type { User } from '@/api/user'
 import { Edit, Delete } from '@element-plus/icons-vue'
 

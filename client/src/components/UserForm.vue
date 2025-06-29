@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { useForm, useField } from 'vee-validate'
 import { required, email as emailRule } from '@vee-validate/rules'
-import { defineProps, defineEmits, watch } from 'vue'
+import { watch } from 'vue'
 
 const props = defineProps<{
   user?: { name: string; email: string; age: number }
