@@ -19,6 +19,7 @@
     "@vee-validate/rules": "^4.15.1",
     "axios": "^1.10.0",
     "element-plus": "^2.10.2",
+    "lodash": "^4.17.21",
     "pinia": "^3.0.3",
     "vee-validate": "^4.15.1",
     "vue": "^3.5.17",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",
+    "@types/lodash": "^4.17.19",
     "@types/node": "^22.15.32",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitest/eslint-plugin": "^1.2.7",

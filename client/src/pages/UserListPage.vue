@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Users</h1>
-    <el-input v-model="search" placeholder="Search by name or email" style="width: 300px; margin-bottom: 16px;" @input="onSearch" clearable />
+    <el-input v-model="searchInput" placeholder="Search by name or email" style="width: 300px; margin-bottom: 16px;" @input="onSearchInput" clearable />
     <el-alert v-if="error" :title="error" type="error" show-icon style="margin-bottom: 16px;" />
     <el-skeleton v-if="loading" rows="5" animated />
     <UserTable
@@ -22,6 +22,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { debounce } from 'lodash'
 import UserTable from '@/components/UserTable.vue'
 import { getUsers, deleteUser, type User } from '@/api/user'
 
@@ -30,6 +31,7 @@ const total = ref(0)
 const page = ref(1)
 const limit = ref(10)
 const search = ref('')
+const searchInput = ref('')
 const loading = ref(false)
 const error = ref('')
 const router = useRouter()
@@ -59,9 +61,15 @@ function onLimitChange(newLimit: number) {
   page.value = 1
   fetchUsers()
 }
-function onSearch() {
+
+const debouncedSearch = debounce(() => {
   page.value = 1
+  search.value = searchInput.value
   fetchUsers()
+}, 400)
+
+function onSearchInput() {
+  debouncedSearch()
 }
 
 watch([page, limit], fetchUsers)
