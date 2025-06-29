@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>Users</h1>
-    <el-input v-model="searchInput" placeholder="Search by name or email" style="width: 300px; margin-bottom: 16px;" @input="onSearchInput" clearable />
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+      <el-input v-model="searchInput" placeholder="Search by name or email" style="width: 300px;" @input="onSearchInput" clearable />
+      <el-button type="primary" @click="goToNewUser" icon="Plus" plain>New User</el-button>
+    </div>
     <el-alert v-if="error" :title="error" type="error" show-icon style="margin-bottom: 16px;" />
     <el-skeleton v-if="loading" rows="5" animated />
     <UserTable
@@ -22,6 +24,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
 import { debounce } from 'lodash'
 import UserTable from '@/components/UserTable.vue'
 import { getUsers, deleteUser, type User } from '@/api/user'
@@ -35,6 +38,10 @@ const searchInput = ref('')
 const loading = ref(false)
 const error = ref('')
 const router = useRouter()
+
+function goToNewUser() {
+  router.push({ name: 'UserCreate' })
+}
 
 async function fetchUsers() {
   loading.value = true
