@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-
 	"user-manager/internal/config"
 	"user-manager/internal/handler"
 	"user-manager/internal/infrastructure"
+	"user-manager/internal/middleware"
 	"user-manager/internal/repository"
 
 	"github.com/gin-gonic/gin"
@@ -32,9 +32,12 @@ func main() {
 	// Initialize User repository
 	userRepo := repository.NewGormUserRepository(db)
 
+	// Set up Gin server and routes
+	r := gin.New()
+	r.Use(gin.Recovery())
+	r.Use(middleware.LoggingMiddleware())
 	userHandler := handler.NewUserHandler(userRepo)
 
-	r := gin.Default()
 	handler.RegisterRoutes(r, userHandler)
 
 	fmt.Println("Starting server on :8080 ...")
