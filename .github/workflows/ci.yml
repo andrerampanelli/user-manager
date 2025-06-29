@@ -37,6 +37,13 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('server/go.sum') }}
       - name: Install dependencies
         run: cd server && go mod download
+      - name: Set backend env
+        run: |
+          echo "DB_USER=${{ secrets.MYSQL_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> $GITHUB_ENV
+          echo "DB_HOST=localhost" >> $GITHUB_ENV
+          echo "DB_PORT=3306" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.MYSQL_DATABASE }}" >> $GITHUB_ENV
       - name: Run Go tests
         run: cd server && go test ./...
       - name: Build backend Docker image

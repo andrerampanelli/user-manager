@@ -8,6 +8,5 @@ RUN go build -ldflags "-s -w" -o /app cmd/main.go
 FROM scratch
 WORKDIR /app
 COPY --from=builder /app .
-COPY --from=builder /go/src/app/.env .env
 EXPOSE 8080
 CMD ["./app"] 
