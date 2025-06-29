@@ -24,8 +24,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import UserTable from '@/components/UserTable.vue'
 import { getUsers, deleteUser, type User } from '@/api/user'
 
