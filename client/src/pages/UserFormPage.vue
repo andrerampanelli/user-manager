@@ -1,10 +1,13 @@
 <template>
-  <div class="user-form-page">
-    <el-card class="user-form-page__card">
-      <h1 class="user-form-page__title">{{ isEdit ? 'Edit User' : 'Add User' }}</h1>
-      <UserForm :user="user" @submit="onSubmit" />
-    </el-card>
-  </div>
+  <el-card class="w-full max-w-md mx-auto mt-12 p-6 bg-white shadow-md">
+    <div class="flex items-center gap-4 mb-4">
+      <el-button circle @click="router.back()">
+        <el-icon><ArrowLeftBold /></el-icon>
+      </el-button>
+      <h1 class="text-2xl font-bold text-center">{{ isEdit ? 'Edit User' : 'Add User' }}</h1>
+    </div>
+    <UserForm :user="user" @submit="onSubmit" />
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -42,21 +45,3 @@ async function onSubmit(formData: { name: string; email: string; age: number }) 
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.user-form-page {
-  max-width: 500px;
-  margin: 32px auto;
-  &__card {
-    padding: 24px;
-    box-shadow: 0 2px 8px #f0f1f2;
-    background: #fff;
-  }
-  &__title {
-    margin-bottom: 24px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-  }
-}
-</style> 

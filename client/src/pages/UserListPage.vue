@@ -1,10 +1,10 @@
 <template>
-  <div class="user-list-page">
-    <div class="user-list-page__header">
-      <el-input v-model="searchInput" placeholder="Search by name or email" class="user-list-page__search" @input="onSearchInput" clearable />
+  <div>
+    <div class="flex items-center justify-between gap-4 mb-4">
+      <el-input v-model="searchInput" placeholder="Search by name or email" @input="onSearchInput" clearable />
       <el-button type="primary" @click="goToNewUser" icon="Plus" plain>New User</el-button>
     </div>
-    <el-alert v-if="error" :title="error" type="error" show-icon class="user-list-page__alert" />
+    <el-alert v-if="error" :title="error" type="error" show-icon />
     <el-skeleton v-if="loading" rows="5" animated />
     <UserTable
       v-else
@@ -103,25 +103,3 @@ async function onDelete(id: number) {
   })
 }
 </script>
-
-<style lang="scss" scoped>
-.user-list-page {
-  max-width: 900px;
-  margin: 32px auto;
-  padding: 24px;
-  background: #fff;
-  box-shadow: 0 2px 8px #f0f1f2;
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  &__search {
-    width: 300px;
-  }
-  &__alert {
-    margin-bottom: 16px;
-  }
-}
-</style> 

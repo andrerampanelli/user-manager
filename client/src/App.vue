@@ -4,7 +4,7 @@ import AppHeader from './components/AppHeader.vue'
 </script>
 
 <template>
-  <el-container style="min-height: 100vh;">
+  <el-container>
     <el-header>
       <AppHeader />
     </el-header>
@@ -13,6 +13,3 @@ import AppHeader from './components/AppHeader.vue'
     </el-main>
   </el-container>
 </template>
-
-<style scoped>
-</style>

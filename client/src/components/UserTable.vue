@@ -1,17 +1,19 @@
 <template>
   <div>
-    <el-table :data="users" class="user-table" stripe border highlight-current-row>
+    <el-table :data="users" stripe class="w-full rounded-lg shadow-sm mb-4">
       <el-table-column prop="id" label="ID" width="40" align="center" />
       <el-table-column label="Name">
         <template #default="{ row }">
-          <router-link :to="`/users/${row.id}`" class="user-table__link">{{ row.name }}</router-link>
+          <el-button link type="primary">
+            <router-link :to="`/users/${row.id}`">{{ row.name }}</router-link>
+          </el-button>
         </template>
       </el-table-column>
       <el-table-column prop="email" label="Email" />
       <el-table-column prop="age" label="Age" width="60" align="center" />
       <el-table-column label="Actions" width="120" align="center">
         <template #default="{ row }">
-          <el-button size="small" @click="$emit('edit', row.id)">
+          <el-button size="small" type="primary" @click="$emit('edit', row.id)">
             <el-icon><Edit /></el-icon>
           </el-button>
           <el-button size="small" type="danger" @click="$emit('delete', row.id)">
@@ -46,19 +48,3 @@ defineProps<{
 
 defineEmits(['edit', 'delete', 'page-change', 'limit-change'])
 </script>
-
-<style lang="scss" scoped>
-.user-table {
-  &__link {
-    text-decoration: none;
-    font-weight: 500;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  &__pagination {
-    margin-top: 16px;
-    text-align: right;
-  }
-}
-</style> 

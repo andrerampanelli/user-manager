@@ -1,13 +1,13 @@
 <template>
-  <el-form @submit.prevent="onSubmit" class="user-form">
+  <el-form @submit.prevent="onSubmit" class="grid grid-cols-1 gap-4">
     <el-form-item label="Name" :error="nameError">
-      <el-input v-model="name" autocomplete="off" class="user-form__input" />
+      <el-input v-model="name" autocomplete="off" />
     </el-form-item>
     <el-form-item label="Email" :error="emailError">
-      <el-input v-model="email" autocomplete="off" class="user-form__input" />
+      <el-input v-model="email" autocomplete="off" />
     </el-form-item>
     <el-form-item label="Age" :error="ageError">
-      <el-input-number v-model="age" :min="18" :max="200" class="user-form__input-number" />
+      <el-input-number v-model="age" :min="18" :max="200" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">Submit</el-button>
@@ -55,19 +55,3 @@ const onSubmit = handleSubmit(values => {
   emit('submit', values)
 })
 </script>
-
-<style lang="scss" scoped>
-.user-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 24px;
-  background: #fff;
-  box-shadow: 0 2px 8px #f0f1f2;
-  &__input {
-    width: 100%;
-  }
-  &__input-number {
-    width: 100%;
-  }
-}
-</style> 
